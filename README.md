@@ -20,7 +20,7 @@ This will return the AST as the following OCaml value (which we will explain in 
 
 ### Ground Rules
 
-In your code, you may use any OCaml modules and features we have taught in this class **except imperative OCaml** features like references, mutable records, and arrays.
+In your code, you may use any OCaml modules and features we have taught in this class, **except imperative OCaml** features like references, mutable records, and arrays.
 
 ### Testing & Submitting
 
@@ -28,7 +28,7 @@ Please submit **lexer.ml** and **parser.ml** files to Canvas. To test locally, c
 
 If you do not have `make`, you can compile the code by `ocamlc -o frontend -I +str str.cma microCamlTypes.ml tokenTypes.ml lexer.mli lexer.ml utils.ml parser.mli parser.ml main.ml`.
 
-All tests will be run on direct calls to your code, comparing your return values to the expected return values. Any other output (e.g., for your own debugging) will be ignored. You are free and encouraged to have additional output. For lexer and parser, the only requirement for error handling is that input that cannot be lexed/parsed according to the provided rules should raise an `InvalidInputException`. We recommend using relevant error messages when raising these exceptions, to make debugging easier. We are not requiring intelligent messages that pinpoint an error to help a programmer debug, but as you do this project you might find you see where you could add those.
+All tests will be run on direct calls to your code, comparing your return values to the expected return values. Any other output (e.g., for your own debugging) will be ignored. You are free and encouraged to have additional output. For lexer and parser, the only requirement for error handling is that input that cannot be lexed/parsed according to the provided rules should raise an `InvalidInputException`. We recommend using relevant error messages when raising these exceptions to make debugging easier. We are not requiring intelligent messages that pinpoint an error to help a programmer debug, but as you do this project, you might find you see where you could add those.
 
 You can write your own tests which only test the parser by feeding it a custom token list. For example, to see how the expression `let x = true in x` would be parsed, you can construct the token list manually:
 
@@ -66,11 +66,11 @@ The `token` type is defined in [tokenTypes.ml](./tokenTypes.ml).
 
 Notes:
 - The lexer input is case sensitive.
-- Tokens can be separated by arbitrary amounts of whitespace, which your lexer should discard. Spaces, tabs ('\t') and newlines ('\n') are all considered whitespace.
-- When excaping characters with `\` within Ocaml strings/regexp you must use `\\` to escape from the string and regexp.
+- Tokens can be separated by arbitrary amounts of whitespace, which your lexer should discard. Spaces, tabs ('\t'), and newlines ('\n') are all considered whitespace.
+- When excaping characters with `\` within Ocaml strings/regexp, you must use `\\` to escape from the string and regexp.
 - If the beginning of a string could match multiple tokens, the **longest** match should be preferred, for example:
   - "let0" should not be lexed as `Tok_Let` followed by `Tok_Int 0`, but as `Tok_ID("let0")`, since it is an identifier.
-  - "314dlet" should be tokenized as `[Tok_Int 314; Tok_ID "dlet"]`. Arbitrary amounts of whitespace also includes no whitespace.
+  - "314dlet" should be tokenized as `[Tok_Int 314; Tok_ID "dlet"]`. Arbitrary amounts of whitespace also include no whitespace.
   - "(-1)" should not be lexed as `[Tok_LParen; Tok_Sub; Tok_Int(1); Tok_LParen]` but as `Tok_Int(-1)`. (This is further explained below)
 - There is no "end" token  -- when you reach the end of the input, you are done lexing.
 
@@ -131,18 +131,18 @@ Token Name | Lexical Representation
 
 Notes:
 - Your lexing code will feed the tokens into your parser, so a broken lexer can cause you to fail tests related to parsing.
-- In grammars given below, the syntax matching tokens (lexical representation) is used instead of the token name. For example, the grammars below will use `(` instead of `Tok_LParen`.
+- In the grammars given below, the syntax matching tokens (lexical representation) are used instead of the token name. For example, the grammars below will use `(` instead of `Tok_LParen`.
 
 ## Part 2: Parsing MicroCaml Expressions
 
-In this part, you will implement `parse_expr`, which takes a stream of tokens and outputs as AST for the input expression of type `expr`. Put all of your parser code in [parser.ml](./parser.ml) in accordance with the signature found in [parser.mli](./parser.mli).
+In this part, you will implement `parse_expr`, which takes a stream of tokens and outputs an AST for the input expression of type `expr`. Put all of your parser code in [parser.ml](./parser.ml) in accordance with the signature found in [parser.mli](./parser.mli).
 
 We present a quick overview of `parse_expr` first, then the definition of AST types it should return, and finally the grammar it should parse.
 
 ### `parse_expr`
 - **Type:** `token list -> token list * expr`
 - **Description:** Takes a list of tokens and returns an AST representing the MicroCaml expression corresponding to the given tokens, along with any tokens left in the token list.
-- **Exceptions:** Raise `InvalidInputException` if the input fails to parse i.e does not match the MicroCaml expression grammar.
+- **Exceptions:** Raise `InvalidInputException` if the input fails to parse i.e, does not match the MicroCaml expression grammar.
 - **Examples** (more below):
   ```ocaml
   parse_expr [Tok_Int(1); Tok_Add; Tok_Int(2)] =  Binop (Add, (Int 1), (Int 2))
@@ -155,7 +155,7 @@ We present a quick overview of `parse_expr` first, then the definition of AST ty
   parse_expr [Tok_DoubleSemi] (* raises InvalidInputException *)
   ```
 
-You may want to implement your parser using the the `lookahead` and `match_tok` functions that we have provided; more information about them is given at the end of this README.
+You may want to implement your parser using the `lookahead` and `match_tok` functions that we have provided; more information about them is given at the end of this README.
 
 ### AST and Grammar for `parse_expr`
 
@@ -205,7 +205,7 @@ Notice that this grammar is not actually quite compatible with recursive descent
 
 - OrExpr -> AndExpr `||` OrExpr | AndExpr
 
-defines two productions for nonterminal OrExpr, separated by |. Notice that both productions starting with AndExpr, so we can't use the lookahead (via FIRST sets) to determine which one to take. This is clear when we rewrite the two productions thus:
+defines two productions for nonterminal OrExpr, separated by |. Notice that both productions start with AndExpr, so we can't use the lookahead (via FIRST sets) to determine which one to take. This is clear when we rewrite the two productions thus:
 
 - OrExpr -> AndExpr `||` OrExpr
 - OrExpr -> AndExpr
@@ -228,7 +228,7 @@ Binop (Div,
   (Int 3))
 ```
 
-In other words, if we run `parse_expr (tokenize "(1 + 2 + 3) / 3")` it will return the AST above.
+In other words, if we run `parse_expr (tokenize "(1 + 2 + 3) / 3")`, it will return the AST above.
 
 ### Example 2: `let` expressions
 
