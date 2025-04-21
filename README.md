@@ -40,7 +40,7 @@ This way, you can work on the parser even if your lexer is not complete yet.
 
 ## Part 1: The Lexer (aka Scanner or Tokenizer)
 
-Your parser will take as input a list of tokens; this list is produced by the *lexer* (also called a *scanner*) as a result of processing the input string. Lexing is readily implemented by use of regular expressions, as demonstrated in **lecture 16 slides 3-5**. Information about OCaml's regular expressions library can be found in the [`Str` module documentation][str doc]. You aren't required to use it, but you may find it helpful.
+Your parser will take as input a list of tokens; this list is produced by the *lexer* (also called a *scanner*) as a result of processing the input string. Lexing is readily implemented by use of regular expressions, as demonstrated in **lecture 16 slides 3-5**. Information about OCaml's regular expressions library can be found in the [`Str` module documentation](https://ocaml.org/manual/5.3/api/Str.html). You aren't required to use it, but you may find it helpful.
 
 Your lexer must be written in [lexer.ml](./lexer.ml). You will need to implement the following function:
 
