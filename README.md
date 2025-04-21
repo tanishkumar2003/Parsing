@@ -159,7 +159,7 @@ You will likely want to implement your parser using the the `lookahead` and `mat
 
 ### AST and Grammar for `parse_expr`
 
-Below is the AST type `expr`, which is returned by `parse_expr`. **Note** that the `environment` and `Closure of environment * var * expr` parts are only relevant to part 3, so you can ignore them for now.
+Below is the AST type `expr`, which is returned by `parse_expr`.
 
 ```ocaml
 type op = Add | Sub | Mult | Div | Concat | Greater | Less | GreaterEqual | LessEqual | Equal | NotEqual | Or | And
@@ -273,7 +273,7 @@ Let ("f", true, Fun ("x", Binop (Concat, ID "x", (Int 1))),
   FunctionCall (ID "f", (Int 1)))
 ```
 
-Keep in mind that the parser is not responsible for finding type errors. This is the job of type inference (part 3). For example, while the AST for `1 1` should be parsed as `FunctionCall ((Int 1), (Int 1))`; if it is checked by type inference, it will at that time be flagged as a type error.
+Keep in mind that the parser is not responsible for finding type errors. This is the job of type inference. For example, the AST for `1 1` should be parsed as `FunctionCall ((Int 1), (Int 1))` (which will be flagged as a type error by a type checker).
 
 ### Example 5: Recursive anonymous functions
 
