@@ -155,7 +155,7 @@ We present a quick overview of `parse_expr` first, then the definition of AST ty
   parse_expr [Tok_DoubleSemi] (* raises InvalidInputException *)
   ```
 
-You will likely want to implement your parser using the the `lookahead` and `match_tok` functions that we have provided; more about them is at the end of this README.
+You may want to implement your parser using the the `lookahead` and `match_tok` functions that we have provided; more information about them is given at the end of this README.
 
 ### AST and Grammar for `parse_expr`
 
