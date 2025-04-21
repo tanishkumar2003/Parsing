@@ -293,7 +293,7 @@ Let ("f", true,
 
 ### Example 6: Currying
 
-We will **ONLY** be currying to create multivariable functions as well as passing multiple arguments to them. Here is an example:
+We will use currying for multivariable functions. Here is an example:
 
 **Input:**
 ```ocaml
