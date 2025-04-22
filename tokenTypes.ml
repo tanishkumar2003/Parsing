@@ -63,7 +63,7 @@ let string_of_token token =
   | Tok_Bool b -> string_of_bool b
   | Tok_String s -> "\"" ^ s ^ "\""
   | Tok_ID id -> id
-  | Tok_DoubleSemi -> ";"
+  | Tok_DoubleSemi -> ";;"
 
 let string_of_token_list toks =
   List.fold_left (fun acc tok -> acc ^ (string_of_token tok) ^ " ") "" toks
